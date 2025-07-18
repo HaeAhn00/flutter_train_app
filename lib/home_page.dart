@@ -6,25 +6,29 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  String? _departureStation;
-  String? _arrivalStation;
+class HomePageState extends State<HomePage> {
+  String? departureStation;
+  String? arrivalStation;
 
   Future<void> selectStation(bool isDeparture) async {
     final selectedStation = await Navigator.push<String>(
       context,
-      MaterialPageRoute(builder: (context) => const StationListPage()),
+      MaterialPageRoute(
+        builder: (context) => StationListPage(
+          isDeparture: isDeparture,
+        ),
+      ),
     );
 
     if (selectedStation != null) {
       setState(() {
         if (isDeparture) {
-          _departureStation = selectedStation;
+          departureStation = selectedStation;
         } else {
-          _arrivalStation = selectedStation;
+          arrivalStation = selectedStation;
         }
       });
     }
@@ -32,15 +36,15 @@ class _HomePageState extends State<HomePage> {
 
   void swapStations() {
     setState(() {
-      final temp = _departureStation;
-      _departureStation = _arrivalStation;
-      _arrivalStation = temp;
+      final temp = departureStation;
+      departureStation = arrivalStation;
+      arrivalStation = temp;
     });
   }
 
   void navigateToSeatPage() {
-    if (_departureStation != null && _arrivalStation != null) {
-      if (_departureStation == _arrivalStation) {
+    if (departureStation != null && arrivalStation != null) {
+      if (departureStation == arrivalStation) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('출발역과 도착역은 같을 수 없습니다.')),
         );
@@ -48,7 +52,12 @@ class _HomePageState extends State<HomePage> {
       }
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const SeatPage()),
+        MaterialPageRoute(
+          builder: (context) => SeatPage(
+            departureStation: departureStation!,
+            arrivalStation: arrivalStation!,
+          ),
+        ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -100,11 +109,11 @@ class _HomePageState extends State<HomePage> {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              _departureStation ?? '선택',
+                              departureStation ?? '선택',
                               style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.bold,
-                                color: _departureStation == null
+                                color: departureStation == null
                                     ? Colors.grey
                                     : Colors.black,
                               ),
@@ -139,11 +148,11 @@ class _HomePageState extends State<HomePage> {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              _arrivalStation ?? '선택',
+                              arrivalStation ?? '선택',
                               style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.bold,
-                                color: _arrivalStation == null
+                                color: arrivalStation == null
                                     ? Colors.grey
                                     : Colors.black,
                               ),

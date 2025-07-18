@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_train_app/data/stations.dart';
 
 class StationListPage extends StatelessWidget {
-  const StationListPage({super.key});
+  final bool isDeparture;
+
+  const StationListPage({
+    super.key,
+    required this.isDeparture,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('기차역 선택'),
+        title: Text(isDeparture ? '출발역 선택' : '도착역 선택'),
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: stations.length,
