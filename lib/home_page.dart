@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   String? _departureStation;
   String? _arrivalStation;
 
-  Future<void> _selectStation(bool isDeparture) async {
+  Future<void> selectStation(bool isDeparture) async {
     final selectedStation = await Navigator.push<String>(
       context,
       MaterialPageRoute(builder: (context) => const StationListPage()),
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _swapStations() {
+  void swapStations() {
     setState(() {
       final temp = _departureStation;
       _departureStation = _arrivalStation;
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _navigateToSeatPage() {
+  void navigateToSeatPage() {
     if (_departureStation != null && _arrivalStation != null) {
       if (_departureStation == _arrivalStation) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => _selectStation(true),
+                      onTap: () => selectStation(true),
                       behavior: HitTestBehavior.opaque,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => _selectStation(false),
+                      onTap: () => selectStation(false),
                       behavior: HitTestBehavior.opaque,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
               ),
-              onPressed: _navigateToSeatPage,
+              onPressed: navigateToSeatPage,
               child: const Text(
                 '좌석 선택하기',
                 style: TextStyle(
