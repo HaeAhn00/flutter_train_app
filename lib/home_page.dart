@@ -14,11 +14,15 @@ class HomePageState extends State<HomePage> {
   String? arrivalStation;
 
   Future<void> selectStation(bool isDeparture) async {
+    final String? stationToExclude =
+        isDeparture ? arrivalStation : departureStation;
+
     final selectedStation = await Navigator.push<String>(
       context,
       MaterialPageRoute(
         builder: (context) => StationListPage(
           isDeparture: isDeparture,
+          excludedStation: stationToExclude,
         ),
       ),
     );
