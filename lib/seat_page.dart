@@ -70,15 +70,15 @@ class SeatPageState extends State<SeatPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _StationHeader(
+            StationHeader(
               departureStation: widget.departureStation,
               arrivalStation: widget.arrivalStation,
             ),
             const SizedBox(height: 16),
-            const _SeatLegend(),
+            const SeatLegend(),
             const SizedBox(height: 16),
             Expanded(
-              child: _SeatSelectionGrid(
+              child: SeatSelectionGrid(
                 selectedSeats: selectedSeats,
                 onSeatTap: (seatIndex) {
                   setState(() {
@@ -92,7 +92,7 @@ class SeatPageState extends State<SeatPage> {
               ),
             ),
             const SizedBox(height: 16),
-            _BookingButton(onPressed: showBookingConfirmationDialog),
+            BookingButton(onPressed: showBookingConfirmationDialog),
           ],
         ),
       ),
@@ -101,8 +101,8 @@ class SeatPageState extends State<SeatPage> {
 }
 
 /// 출발역과 도착역을 표시하는 헤더 위젯
-class _StationHeader extends StatelessWidget {
-  const _StationHeader({
+class StationHeader extends StatelessWidget {
+  const StationHeader({
     required this.departureStation,
     required this.arrivalStation,
   });
@@ -144,22 +144,22 @@ class _StationHeader extends StatelessWidget {
 }
 
 /// 좌석 상태를 안내하는 범례 위젯
-class _SeatLegend extends StatelessWidget {
-  const _SeatLegend();
+class SeatLegend extends StatelessWidget {
+  const SeatLegend();
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildLegendItem(Colors.purple, '선택됨'),
+        buildLegendItem(Colors.purple, '선택됨'),
         const SizedBox(width: 20),
-        _buildLegendItem(Colors.grey[300]!, '선택안됨'),
+        buildLegendItem(Colors.grey[300]!, '선택안됨'),
       ],
     );
   }
 
-  Widget _buildLegendItem(Color color, String text) {
+  Widget buildLegendItem(Color color, String text) {
     return Row(
       children: [
         Container(
@@ -178,8 +178,8 @@ class _SeatLegend extends StatelessWidget {
 }
 
 /// 좌석 선택 그리드 영역 위젯
-class _SeatSelectionGrid extends StatelessWidget {
-  const _SeatSelectionGrid({
+class SeatSelectionGrid extends StatelessWidget {
+  const SeatSelectionGrid({
     required this.selectedSeats,
     required this.onSeatTap,
   });
@@ -226,11 +226,11 @@ class _SeatSelectionGrid extends StatelessWidget {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _SeatBox(
+                  SeatBox(
                     isSelected: selectedSeats.contains(rowIndex * 4 + 0),
                     onTap: () => onSeatTap(rowIndex * 4 + 0),
                   ),
-                  _SeatBox(
+                  SeatBox(
                     isSelected: selectedSeats.contains(rowIndex * 4 + 1),
                     onTap: () => onSeatTap(rowIndex * 4 + 1),
                   ),
@@ -244,11 +244,11 @@ class _SeatSelectionGrid extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.bold),
                     )),
                   ),
-                  _SeatBox(
+                  SeatBox(
                     isSelected: selectedSeats.contains(rowIndex * 4 + 2),
                     onTap: () => onSeatTap(rowIndex * 4 + 2),
                   ),
-                  _SeatBox(
+                  SeatBox(
                     isSelected: selectedSeats.contains(rowIndex * 4 + 3),
                     onTap: () => onSeatTap(rowIndex * 4 + 3),
                   ),
@@ -263,8 +263,8 @@ class _SeatSelectionGrid extends StatelessWidget {
 }
 
 /// 개별 좌석 위젯
-class _SeatBox extends StatelessWidget {
-  const _SeatBox({
+class SeatBox extends StatelessWidget {
+  const SeatBox({
     required this.isSelected,
     required this.onTap,
   });
@@ -290,8 +290,8 @@ class _SeatBox extends StatelessWidget {
 }
 
 /// 예매하기 버튼 위젯
-class _BookingButton extends StatelessWidget {
-  const _BookingButton({required this.onPressed});
+class BookingButton extends StatelessWidget {
+  const BookingButton({required this.onPressed});
 
   final VoidCallback onPressed;
 
