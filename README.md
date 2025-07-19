@@ -1,16 +1,21 @@
-# flutter_train_app
+🚆 Flutter 기차 예매 서비스
 
-A new Flutter project.
+**프로젝트 소개**
 
-## Getting Started
+Flutter를 사용하여 출발역과 도착역을 선택하고, 원하는 좌석을 예매하는 간단한 기차 예매 애플리케이션입니다. 직관적인 UI를 통해 사용자가 쉽게 기차표를 예매하는 과정을 경험할 수 있습니다.
 
-This project is a starting point for a Flutter application.
+**주요 기능**
 
-A few resources to get you started if this is your first Flutter project:
+**lib/home_page.dart:** 앱의 메인 화면입니다.
+'기차 예매' 타이틀을 포함한 AppBar와 전체 화면의 레이아웃을 구성합니다.
+출발역과 도착역을 선택하는 UI를 구현하고, 선택된 역 이름을 화면에 표시합니다.
+'좌석 선택하기' 버튼을 통해 좌석 선택 페이지(SeatPage)로 이동하는 기능을 담당합니다.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**lib/station_list_page.dart:** 역 목록을 보여주고 사용자가 선택하는 페이지입니다.
+HomePage에서 '출발역' 또는 '도착역'을 탭했을 때, 사용자가 역을 선택할 수 있도록 역 목록을 보여줍니다.
+선택한 역 정보를 HomePage로 다시 전달합니다.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**lib/seat_page.dart:** 좌석을 선택하고 예매를 확정하는 페이지입니다. 페이지 내에 기능별로 위젯이 잘 분리되어 있습니다.
+AppBar 및 예매 확인창: '좌석 선택' 타이틀을 표시하고, '예매하기' 버튼 클릭 시 선택한 좌석 정보를 보여주는 최종 확인창(CupertinoAlertDialog)을 출력합니다.
+선택 경로 및 좌석 범례 (_StationHeader, _SeatLegend): 사용자가 선택한 '출발역 → 도착역' 정보와 좌석의 상태('선택됨', '선택안됨')를 알려주는 범례를 표시합니다.
+좌석 선택 그리드 및 좌석 구현 (_SeatSelectionGrid, _SeatBox): 전체 좌석을 그리드 형태로 보여주며, 각 좌석을 탭하여 선택하거나 해제할 수 있습니다. 선택된 좌석은 보라색으로, 선택 가능한 좌석은 회색으로 표시됩니다.
